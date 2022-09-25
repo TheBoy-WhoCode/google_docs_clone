@@ -13,7 +13,7 @@ const auth = async (req, res, next) => {
             return res.status(401).json({ msg: "Token verificaton failed, authorization denied." })
         
         req.user = verified.id
-        reg.token = token
+        req.token = token
         next()
     } catch (error) {
         res.status(500).json({error: error.message})
