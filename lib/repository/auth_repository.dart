@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_docs_clone/constants.dart';
 import 'package:google_docs_clone/models/error_model.dart';
 import 'package:google_docs_clone/models/user_model.dart';
+import 'package:google_docs_clone/repository/local_storage_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart';
 
@@ -11,6 +12,7 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
   return AuthRepository(
     googleSignIn: GoogleSignIn(),
     client: Client(),
+    localStorageRepository: LocalStorageRepository(),
   );
 });
 
@@ -21,9 +23,14 @@ final userProvider = StateProvider<UserModel?>((ref) {
 class AuthRepository {
   final GoogleSignIn _googleSignIn;
   final Client _client;
-  AuthRepository({required GoogleSignIn googleSignIn, required Client client})
-      : _googleSignIn = googleSignIn,
-        _client = client;
+  final LocalStorageRepository _localStorageRepository;
+  AuthRepository({
+    required GoogleSignIn googleSignIn,
+    required Client client,
+    required LocalStorageRepository localStorageRepository,
+  })  : _googleSignIn = googleSignIn,
+        _client = client,
+        _localStorageRepository = localStorageRepository;
 
   Future<ErrorModel> signInWithGoole() async {
     ErrorModel errorModel =
@@ -51,9 +58,12 @@ class AuthRepository {
 
         switch (res.statusCode) {
           case 200:
-            final newUser =
-                userAcc.copyWith(uid: jsonDecode(res.body)['user']['_id']);
+            final newUser = userAcc.copyWith(
+              uid: jsonDecode(res.body)['user']['_id'],
+              token: jsonDecode(res.body)['token'],
+            );
             errorModel = ErrorModel(error: null, data: newUser);
+            _localStorageRepository.setToken(newUser.token);
             break;
         }
       }

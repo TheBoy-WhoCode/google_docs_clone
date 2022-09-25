@@ -2,6 +2,10 @@
 keytool -keystore path-to-debug-or-production-keystore -list -v
 
 keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android 
+
+# To run flutter web project on custom web-port
+flutter run -d chrome --web-port 3000
+
 A new Flutter project.
  
 ## Getting Started
