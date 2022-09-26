@@ -6,6 +6,7 @@ import 'package:google_docs_clone/models/document_model.dart';
 import 'package:google_docs_clone/models/error_model.dart';
 import 'package:google_docs_clone/repository/auth_repository.dart';
 import 'package:google_docs_clone/repository/document_repository.dart';
+import 'package:google_docs_clone/repository/socket_repository.dart';
 
 class DocumentScreen extends ConsumerStatefulWidget {
   const DocumentScreen({
@@ -27,8 +28,11 @@ class _DocumentScreenState extends ConsumerState<DocumentScreen> {
 
   ErrorModel? errorModel;
 
+  SocketRepository socketRepository = SocketRepository();
+
   @override
   void initState() {
+    socketRepository.joinRoom(widget.id);
     fetchDocumentData();
     super.initState();
   }

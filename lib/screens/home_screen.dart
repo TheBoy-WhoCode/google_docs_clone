@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_docs_clone/colors.dart';
 import 'package:google_docs_clone/common/widgets/loader.dart';
 import 'package:google_docs_clone/models/document_model.dart';
-import 'package:google_docs_clone/models/error_model.dart';
 import 'package:google_docs_clone/repository/auth_repository.dart';
 import 'package:google_docs_clone/repository/document_repository.dart';
 import 'package:routemaster/routemaster.dart';

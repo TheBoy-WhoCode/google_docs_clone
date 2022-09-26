@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_docs_clone/colors.dart';
 import 'package:google_docs_clone/repository/auth_repository.dart';
-import 'package:google_docs_clone/screens/home_screen.dart';
 import 'package:routemaster/routemaster.dart';
 
 class LoginScreen extends ConsumerWidget {
