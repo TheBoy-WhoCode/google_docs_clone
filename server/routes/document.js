@@ -29,4 +29,28 @@ dcoumentRouter.get('/docs/me', auth,  async (req, res) => {
     }
 })
 
+dcoumentRouter.post('/doc/title', auth, async (req, res) => { 
+    try {
+        const { id, title } = req.body
+        const document = await Document.findByIdAndUpdate(id, {title})
+
+        document = await document.save()
+        res.json(document)
+        
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
+
+dcoumentRouter.get('/docs/:id', auth,  async (req, res) => { 
+    try {
+        const document = await Document.findById(req.params.id)
+        res.json(document)
+    } catch (error) {
+        res.status(500).json({error: error.message})
+    }
+})
+
+
 module.exports = dcoumentRouter

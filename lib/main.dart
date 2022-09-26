@@ -43,7 +43,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Google docs',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
