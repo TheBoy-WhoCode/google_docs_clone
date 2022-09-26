@@ -40,9 +40,9 @@ class AuthRepository {
       if (user != null) {
         final userAcc = UserModel(
           email: user.email,
-          name: user.displayName!,
+          name: user.displayName ?? "",
           uid: '',
-          profilePic: user.photoUrl!,
+          profilePic: user.photoUrl ?? "",
           token: '',
         );
 
@@ -106,5 +106,10 @@ class AuthRepository {
       errorModel = ErrorModel(error: e.toString(), data: null);
     }
     return errorModel;
+  }
+
+  void signOut() async {
+    await _googleSignIn.signOut();
+    _localStorageRepository.setToken("");
   }
 }
